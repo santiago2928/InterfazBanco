@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 import modelo.Clientes;
 import modelo.Cajero;
 import cola.Cola;
-import modelo.utilidades;
+import cola.utilidades;
 import java.util.Timer;
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -80,58 +80,84 @@ public class FXMLDocumentController implements Initializable {
     
     private ArrayList<Cajero> cajeros;
 
+    private Clientes generarClientes(){
+        int numClientes = random.nextInt(5)+1;
+        
+        for (int i = 0; i < numClientes; i++) {
+            int edad = random.nextInt(83)+18;
+            int tiempo = random.nextInt(10)+1;
+            boolean esCliente = random.nextBoolean();
+            Clientes cliente = new Clientes(edad,tiempo,esCliente);
+            
+            return cliente;
+        }
+        return null;
+    }
     
+    
+    //Metodo para llenar la ColaPreferencial si el cliente es mayor o igual a 60 años.
+    public Cola<Clientes> llenarPreferencial() {
+        
+        for (Clientes cliente : almacenarCli) { 
+            if (cliente.getEdad() >= 60) {
+                colaPreferencial.encolar(cliente);
+            }    
+            
+        }return colaPreferencial;
+        
+        
+    }
+
+    //Metodo para llenar la colaBanco en la cula si el cliente es igual a False se encola en la colaBanco.
+    public Cola<Clientes> llenarBanco() {
+
+        for (Clientes cliente : almacenarCli) {
+                if (cliente.isEsCliente() == false && cliente.getEdad() < 60) {
+                    colaBanco.encolar(cliente);
+            }
+        }
+
+        return colaBanco;
+
+    }
+
+    // Metodo para llenar la colaClientes en la cual si el cliente es igual a True se encola a la colaClientes.
+    public Cola<Clientes> llenarClientes() {
+        for (Clientes cliente : almacenarCli) {
+            if (cliente.isEsCliente() == true && cliente.getEdad() < 60) {
+                colaClientes.encolar(cliente);
+            }
+        }
+         return colaClientes;
+    }
    
-    
-    
-    
-    
     
     
     @FXML 
     private void handleIniciarButton(ActionEvent i){
         
+       TimerTask miTimerTask; 
+       miTimerTask = new TimerTask() {
+           @Override
+           public void run() {
+               Clientes nuevoCliente = generarClientes();
+                
+               almacenarCli.add(nuevoCliente);
+               colaPreferencial = llenarPreferencial();
+               colaBanco = llenarBanco();
+               colaClientes = llenarClientes();
+               
+           }
+       };
+       
+       timer.schedule(miTimerTask, 5000);
+       
+       
+       colaP.setText(colaPreferencial.toString());
+       colaB.setText(colaBanco.toString());
+       colaC.setText(colaClientes.toString());
         
-     Timer timer = new Timer (); 
-        
-     TimerTask miTimerTask = new TimerTask(){
-        public void run(){
-            
-        int numClientes = random.nextInt(5) + 1;
-             
-            for (int i = 0; i < numClientes; i++) {
-            int edad = random.nextInt(83) + 18;
-            int tiempo = random.nextInt(10) + 1;
-            boolean esCliente = random.nextBoolean();
-            Clientes cliente = new Clientes(edad, tiempo, esCliente);
-            almacenarCli.add(cliente);
-        } 
-        
-        }
-
-     };
-     
-     
-      timer.schedule(miTimerTask, 5000);
-   
-        
-     
-
-      
-        
-    
-        
-        
-        
-        
-     
-     
-     
-     
-     
-     
-     
-     
+  
      
      
      
@@ -151,7 +177,7 @@ public class FXMLDocumentController implements Initializable {
                     updateProgress(i, 100); // Actualizar el progreso
                     
                     // Dormir para simular una tarea que toma un tiempo
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                 }
                 return null;
             }
@@ -204,6 +230,8 @@ public class FXMLDocumentController implements Initializable {
         
         random = new Random();
         timer = new Timer();
+        
+        
   
     
     }    
