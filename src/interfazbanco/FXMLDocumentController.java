@@ -157,7 +157,7 @@ public class FXMLDocumentController implements Initializable {
        colaB.setText(colaBanco.toString());
        colaC.setText(colaClientes.toString());
         
-  
+   
      
      
      
