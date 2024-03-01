@@ -27,6 +27,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 
 
@@ -133,36 +134,34 @@ public class FXMLDocumentController implements Initializable {
    
     
     
-    @FXML 
-    private void handleIniciarButton(ActionEvent i){
+    @FXML
+    private void handleIniciarButton(ActionEvent i) {
         
-       TimerTask miTimerTask; 
-       miTimerTask = new TimerTask() {
-           @Override
-           public void run() {
-               Clientes nuevoCliente = generarClientes();
+        Timer miTimerTask = new Timer();
+        
+        miTimerTask.schedule(new TimerTask(){
+            @Override
+            public void run() {
                 
-               almacenarCli.add(nuevoCliente);
-               colaPreferencial = llenarPreferencial();
-               colaBanco = llenarBanco();
-               colaClientes = llenarClientes();
-               
-           }
-       };
-       
-       timer.schedule(miTimerTask, 5000);
-       
-       
-       colaP.setText(colaPreferencial.toString());
-       colaB.setText(colaBanco.toString());
-       colaC.setText(colaClientes.toString());
+                Clientes nuevoCliente = generarClientes();
+
+                almacenarCli.add(nuevoCliente);
+                colaPreferencial = llenarPreferencial();
+                colaBanco = llenarBanco();
+                colaClientes = llenarClientes();
+                
+                
+                colaP.setText(colaPreferencial.toString());
+                colaB.setText(colaBanco.toString());
+                colaC.setText(colaClientes.toString());
+                
+            }
         
-   
-     
-     
-     
+    },0,1000);
         
-        // metodo para que se Muevan los Progress Indicator
+
+        
+    // metodo para que se Muevan los Progress Indicator
         cajero1.setVisible(true);
         cajero2.setVisible(true);
         cajero3.setVisible(true);
@@ -177,7 +176,7 @@ public class FXMLDocumentController implements Initializable {
                     updateProgress(i, 100); // Actualizar el progreso
                     
                     // Dormir para simular una tarea que toma un tiempo
-                    Thread.sleep(200);
+                    Thread.sleep(800);
                 }
                 return null;
             }
@@ -204,16 +203,22 @@ public class FXMLDocumentController implements Initializable {
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
+            
         
         
         
         
-     
-       
+        
+
+ 
     }
     
+    // boton Para que se muestre el resumen de todo lo que paso en el aplicativo 
     @FXML
     private void Resumen(ActionEvent event){
+        
+        
+        
         
     }
     

@@ -94,7 +94,7 @@ public class Clientes extends Base{
 
     @Override
     public String toString() {
-        return "Clientes{" + "edad=" + edad + ", tiempo=" + tiempo + ", esCliente: "+esCliente+'}'+"\n";
+        return  "("+"edad=" + edad + ", tiempo=" + tiempo +")" + "\n";
     }
     
     

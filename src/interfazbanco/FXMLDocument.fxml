@@ -46,5 +46,6 @@
       <ProgressIndicator fx:id="cajero2" layoutX="595.0" layoutY="129.0" prefHeight="62.0" prefWidth="69.0" progress="0.0" />
       <TextArea layoutX="480.0" layoutY="353.0" prefHeight="143.0" prefWidth="231.0" />
       <Button layoutX="211.0" layoutY="484.0" mnemonicParsing="false" onAction="#handleIniciarButton" prefHeight="62.0" prefWidth="130.0" text="Iniciar" />
+      <Button layoutX="569.0" layoutY="515.0" mnemonicParsing="false" onAction="#Resumen" text="Resumen" />
     </children>
 </AnchorPane>
