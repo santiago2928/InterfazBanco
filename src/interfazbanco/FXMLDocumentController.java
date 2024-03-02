@@ -2,10 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML2.java to edit this template
  */
-package interfazbanco;
+package interfazbanco;  
+
+import cola.Cola; 
+import modelo.Clientes;
+import modelo.Cajero;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.LinkedList;    
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.TimerTask;
@@ -13,10 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import modelo.Clientes;
-import modelo.Cajero;
-import cola.Cola;
-import cola.utilidades;
 import java.util.Timer;
 import javafx.application.Application;
 import javafx.concurrent.Task;
@@ -28,6 +28,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.application.Platform;
+
 
 
 
@@ -81,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
     
     private ArrayList<Cajero> cajeros;
 
-    private Clientes generarClientes(){
+    private void generarClientes(){
         int numClientes = random.nextInt(5)+1;
         
         for (int i = 0; i < numClientes; i++) {
@@ -89,10 +90,11 @@ public class FXMLDocumentController implements Initializable {
             int tiempo = random.nextInt(10)+1;
             boolean esCliente = random.nextBoolean();
             Clientes cliente = new Clientes(edad,tiempo,esCliente);
+            almacenarCli.add(cliente);
             
-            return cliente;
+            
         }
-        return null;
+        
     }
     
     
@@ -143,9 +145,9 @@ public class FXMLDocumentController implements Initializable {
             @Override
             public void run() {
                 
-                Clientes nuevoCliente = generarClientes();
+                generarClientes();
 
-                almacenarCli.add(nuevoCliente);
+                
                 colaPreferencial = llenarPreferencial();
                 colaBanco = llenarBanco();
                 colaClientes = llenarClientes();
@@ -176,7 +178,7 @@ public class FXMLDocumentController implements Initializable {
                     updateProgress(i, 100); // Actualizar el progreso
                     
                     // Dormir para simular una tarea que toma un tiempo
-                    Thread.sleep(800);
+                    Thread.sleep(300);
                 }
                 return null;
             }

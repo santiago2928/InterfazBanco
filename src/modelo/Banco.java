@@ -8,6 +8,6 @@ package modelo;
  *
  * @author santi
  */
-public class Cajero {
+public class Banco {
     
 }

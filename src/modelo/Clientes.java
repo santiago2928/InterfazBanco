@@ -7,7 +7,7 @@
  */
 package modelo;
 
-import cola.Base;
+
 import cola.Base;
 
 public class Clientes extends Base{
@@ -94,7 +94,7 @@ public class Clientes extends Base{
 
     @Override
     public String toString() {
-        return  "("+"edad=" + edad + ", tiempo=" + tiempo +")" + "\n";
+        return "Clientes{" + "edad=" + edad + ", tiempo=" + tiempo + ", esCliente: "+esCliente+'}'+"\n";
     }
     
     
